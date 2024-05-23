@@ -13,12 +13,11 @@ export async function loader() {
 
 
 export const action=async ({request})=>{
+  console.log("yes");
     const formData=await request.formData();
     const {extractedData} = Object.fromEntries(formData);
     const subjects = JSON.parse(extractedData);
-
     console.log(subjects);
-   
     const result= await axios.post('http://localhost:8000/admin/uploadsubjects', { subjects });
     return result
     //console.log("Data uploaded successfully");
@@ -30,7 +29,6 @@ export const action=async ({request})=>{
 const SubjectsTable = () => {
   const { subjects } = useLoaderData();
   const [data, setSubjects] = useState();
- 
     // Fonction pour gérer l'importation du fichier Excel
     const handleFileUpload = (event) => {
       const file = event.target.files[0];
@@ -46,6 +44,7 @@ const SubjectsTable = () => {
           const data = XLSX.utils.sheet_to_json(ws);
           document.getElementById('extractedData').value = JSON.stringify(data);
           setSubjects(data);
+          console.log(data);
         };
         
     
@@ -87,20 +86,20 @@ const SubjectsTable = () => {
       </tbody>
     </table>
     <div className="flex mt-2 float-right flex-row">
-      <div >
-        <Form className='flex' method="post">
-         
-          <input type="file" name='data' accept=".xls, .xlsx" onChange={handleFileUpload} className="block w-full text-sm text-slate-500
+      <div  >
+        <Form className='flex justify-between' method="post">
+          <label htmlFor='file-upload' className="block w-full text-sm text-slate-500">Upload Excel File</label>
+          <input type="file" name='data' id='file-upload' accept=".xls, .xlsx" onChange={handleFileUpload} className="block w-full text-sm text-slate-500
       file:mr-4 file:py-2 file:px-4
       file:rounded-full file:border-0
-      file:text-sm file:font-semibold
+      file:text-sm file:font-semibold hidden
       file:bg-violet-50 file:text-violet-700
       hover:file:bg-violet-100
     "/>
           <input type="hidden" name="extractedData" id="extractedData" />
-          <button className="bg-violet-50 hover:bg-violet-1k00 active:bg-violet-700 font-semibold text-violet-700 focus:outline-none focus:ring focus:ring-violet-300 rounded-full">
-  Upload
-</button>
+          <button type='submit' className="bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 rounded-full">
+             Save changes
+          </button>
         </Form>
       </div>
     </div>

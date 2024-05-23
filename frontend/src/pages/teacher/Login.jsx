@@ -46,7 +46,7 @@ const Login = () => {
         if(mode){
              
              console.log(form);
-             await axios.post("http://back:8000/auth/login",form).then((res)=>{
+             await axios.post("http://localhost:8000/auth/login",form).then((res)=>{
                 console.log(res)
                 if(res.data.token){
                     notifyfun("Login successful",false)
@@ -261,6 +261,7 @@ const Login = () => {
               {mode?" Sign up":" Sign in"}
             </button>
           </p>
+          <div className='text-center text-blue-700 underline'><Link to={"/admin"}>admin</Link></div>
         </div>
       </div>
     </>

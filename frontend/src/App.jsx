@@ -5,7 +5,7 @@ import {Login,Dashboard,Subjectpage as ModuleEnvironmentPage,
           subjectLoader2} from './pages/teacher'
 import {Admin,Subjectpage,SubjectsTable,Teacherpage,
   TeachersTable,subjectsLoader,subjectPost,subjectLoader,
-  TeacherLoader,TeacherAction,getTeachersLoader} from './pages/admin'
+  TeacherLoader,TeacherAction,getTeachersLoader,teachersPost} from './pages/admin'
 
 import {createBrowserRouter,RouterProvider} from 'react-router-dom';
 
@@ -19,7 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/auth",
     element: <Login />,
+  },{
+    
   },
+
   //this is dashboard route
   {
     path: "/:name",
@@ -50,6 +53,7 @@ const router = createBrowserRouter([
         path: "teachers",
         element: <TeachersTable />,
         loader: getTeachersLoader,
+        action:teachersPost,
       
         
       },
