@@ -5,14 +5,16 @@ import { Form, useLoaderData,redirect,useActionData,useMatches,useRouteLoaderDat
 import axios from 'axios';
 
 export const loader = async ({params,request}) => {
-  const user=JSON.parse(localStorage.getItem('profile'))
+  const token=localStorage.getItem('token');
   const url = new URL(request.url);
   const q = url.searchParams.get("q");
   let searchResult={data:{tools:[]}}
-  const response=await axios.get(`http://localhost:8000/teacher/getSubject?id=${params.subjectid}`);
-  const {data:{myTools}}=await axios.get(`http://localhost:8000/teacher/getmytools?id=${user._id}`)
+  const response=await axios.get(`http://localhost:8000/teacher/getSubject`,
+   {headers:{Authorization:`Bearer ${token}`,subjectId:params.subjectid}}
+  );
+  const {data:{myTools}}=await axios.get(`http://localhost:8000/teacher/getmytools`,{headers:{Authorization:`Bearer ${token}`}})
   if (q) {
-    searchResult=await axios.get(`http://localhost:8000/teacher/search`,{params:{val:q}});
+    searchResult=await axios.get(`http://localhost:8000/teacher/search`,{params:{val:q},headers:{Authorization:`Bearer ${token}`}});
   }
   
   
@@ -30,7 +32,8 @@ export const action=async({request})=>{
 
 }
 const ModuleEnvironmentPage = () => {
-  const data = useRouteLoaderData("sub");
+  
+  
  
   const { response: { data: {subject:subject} },searchResult:{data:{tools}},myTools } = useLoaderData();
   console.log(myTools);
@@ -109,13 +112,13 @@ const ModuleEnvironmentPage = () => {
 
     <div>
     {
-      toolsIhave.length>0?<span>Tools you have</span>:<span>you have not tools yet</span>
+      toolsIhave.length>0?<span className=''>Tools you have</span>:<span>you have not tools yet</span>
     }
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-10">
+      <div className="grid mt-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-10">
      {
       toolsIhave.map((myTool,index)=>(
-        <ToolCard key={index} have {...myTool.tool}></ToolCard>
+        <ToolCard key={index} have ver={myTool.version} subjectId={subject._id} {...myTool.tool}></ToolCard>
       ))
      }
       </div>

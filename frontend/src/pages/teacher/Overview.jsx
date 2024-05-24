@@ -5,9 +5,17 @@ import axios from 'axios';
 
 
 
-export const loader = async ({params}) => {
-  const name=params.name
-  const response = await axios.get(`http://localhost:8000/teacher/getTeacher?name=${name}`);
+export const loader = async () => {
+  const token=localStorage.getItem('token');
+  const response = await axios.get(`http://localhost:8000/teacher/getTeacher`,{
+    
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+
+      
+    );
   return response.data;
 }
 

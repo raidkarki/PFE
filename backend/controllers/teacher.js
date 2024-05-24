@@ -4,36 +4,12 @@ import { Teacher,Subject,Tool } from '../database/model.js';
 
 
 
-export const search2 = async (req, res) => {
-    const val = req.params.val;
-    
-    const dockerToken = req.headers.authorization
-    
-    var options = { 
-        method: 'GET',
-        url: `https://hub.docker.com/v2/namespaces/library/repositories/openjdk`,
-        headers: {
-          Authorization: `Bearer ${dockerToken}`,
-        }
-      };
 
-   
-    
-    try {
-
-        const result=await axios.request(options)
-        
-        res.status(200).json(result.data.results);
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: error.message});
-    }
-}
 export const search = async (req, res) => {
   try {
     const val = req.query.val;
     
-    
+    console.log(val);
     
     const tools = await Tool.find({name:{$regex:val,$options:'i'}}).exec();
     
@@ -48,9 +24,9 @@ export const search = async (req, res) => {
 }
 export const getTeacher= async (req,res)=>{
   try {
-      const name=req.query.name
+      const id=req.user.id
       
-      const teacher = await Teacher.findOne({name}).populate("preference.subject").exec();
+      const teacher = await Teacher.findOne({_id:id}).populate("preference.subject").exec();
       console.log(teacher);
    
       
@@ -61,7 +37,8 @@ export const getTeacher= async (req,res)=>{
 }
 export const getSubject=async(req,res)=>{
   try {
-    const subjectid=req.query.id
+    const subjectid=req.headers.subjectid
+    console.log(subjectid);
     const subject=await Subject.findOne({_id:subjectid})
     res.status(200).json({subject})
     
@@ -71,8 +48,8 @@ export const getSubject=async(req,res)=>{
 }
 export const addTool=async(req,res)=>{
   try {
-  
-    const {version,toolId,teacherId,subjectId}=req.body
+    const teacherId=req.user.id
+    const {version,toolId,subjectId}=req.body
     const teacher=await Teacher.findById(teacherId)
     teacher.preference.map((preference)=>{
       if (preference.subject==subjectId) {
@@ -88,7 +65,7 @@ export const addTool=async(req,res)=>{
 //this is the middelware to send the tols i have to the client side
 export const getMyTools=async(req,res)=>{
   try {
-    const id=req.query.id
+    const id=req.user.id
     const {preference}=await Teacher.findById({_id:id}).populate('preference.tools.tool').exec()
     res.status(200).json({myTools:preference})
   } catch (error) {
@@ -97,10 +74,16 @@ export const getMyTools=async(req,res)=>{
 }
 export const deleteTool=async(req,res)=>{
   try {
-    const {teacherId,toolId,subjectId}=req.body
-
+    const teacherId=req.user.id
+    const {toolId,subjectId}=req.query
+    console.log(toolId,subjectId);
     const teacher=await Teacher.findById(teacherId)
-    teacher.preference.filter((pre)=>pre.tools.tool!=toolId)
+    teacher.preference.map((preference)=>{
+     if (preference.subject==subjectId) {
+       preference.tools=preference.tools.filter((tool)=>tool.tool!=toolId)
+     }})
+    await teacher.save()
+    res.status(200).json({message:"tool deleted"})
   } catch (error) {
     res.status(500).json({error:error.message})
   }

@@ -1,11 +1,10 @@
 import { Teacher } from "../database/model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-//import dockerhub from "../database/docker.js";
 
 
 
-// Update the path
+const secret=process.env.SECRET_KEY||"mysecretkey";
 
 export const register = async (req, res) => {
      const { name, password, secondname, email } = req.body;
@@ -33,28 +32,30 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
     const { email, password } = req.body;
-    console.log("l email"+email, password); 
 
     try {
         const teacher = await Teacher.findOne({ email });
-        //const dockerToken = await dockerhub();
         
-        //console.log("dockerToken"+dockerToken);
-        if (teacher) {
-            const isPasswordValid = await bcrypt.compare(password, teacher.password);
-
-            if (isPasswordValid) {
-                const token = jwt.sign({ name: teacher.name, id: teacher._id }, "test", { expiresIn: "1h" });
-                res.status(200).json({ teacher, token});
-
-            } else {
-                res.status(401).json({ message: "Invalid password" });
-            }
-        } else {
-            res.status(404).json({ message: "Teacher not found" });
+        if (!teacher) {
+            return res.status(404).json({ message: "Account not exist contact admin" });
         }
+
+        const isPasswordValid = await bcrypt.compare(password, teacher.password);
+
+        if (!isPasswordValid) {
+            return res.status(400).json({ message: "Invalid password" });
+        }
+
+        const token = generateToken(teacher);
+        res.status(200).json({ teacher, token });
+
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error('Login error:', error); // Log de l'erreur côté serveur
+        res.status(500).json({ message: "Internal server error" });
     }
+};
+
+const generateToken = (teacher) => {
+    return jwt.sign({ name: teacher.name, id: teacher._id }, secret, { expiresIn: "2h" });
 };
 

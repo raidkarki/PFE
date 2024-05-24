@@ -111,7 +111,7 @@ const TeachersTable = () => {
   <div className="flex mt-4">
       <Form className="flex  " method="post">
         <label htmlFor='file-upload' className="block w-full text-sm text-slate-500">Upload Excel File</label>
-        <input type="file" name='data' id='file-upload' accept=".xls, .xlsx" onChange={handleFileUpload} className="block w-full text-sm text-slate-500
+        <input type="file" name='data' id='file-upload' accept=".xls, .xlsx" onChange={handleFileUpload} className=" w-full text-sm text-slate-500
             file:mr-4 file:py-2 file:px-4
             file:rounded-full file:border-0
             file:text-sm file:font-semibold hidden

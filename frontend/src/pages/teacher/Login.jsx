@@ -14,7 +14,7 @@ const Login = () => {
     const [loading, setLoading] = useState(false)
     const [mode,setMode]=useState(true)
     const navigate=useNavigate()
-    const notifyfun = (message,err) => {if (err) {
+    const notifyFun = (message,err) => { if (err) {
       toast.error(message,{
         position: "top-center",
       autoClose: 2000,
@@ -44,26 +44,28 @@ const Login = () => {
       e.preventDefault()
         setLoading(true)
         if(mode){
-             
-             console.log(form);
-             await axios.post("http://localhost:8000/auth/login",form).then((res)=>{
-                console.log(res)
-                if(res.data.token){
-                    notifyfun("Login successful",false)
-                    localStorage.setItem("profile",JSON.stringify(res.data.teacher))
-                    localStorage.setItem("token",res.data.token)
-                    localStorage.setItem("dockertoken",res.data.dockerToken)
-                    navigate(`/${res.data.teacher.name}`)
-                }
-                
-                
-                setLoading(false)
-            }
-            ).catch((err)=>{
-                console.log(err)
-                setLoading(false)
-            })
 
+          try {
+            const res = await axios.post("http://localhost:8000/auth/login", form);
+            
+    
+            if (res.status === 200) {
+                
+                notifyFun("Login successful", false);
+                localStorage.setItem("token", res.data.token);
+                setTimeout(() => {navigate(`/dashboard`);}, 2000);
+                
+            } else {
+                notifyFun(res.data.message, true);
+            }
+        } catch (error) {
+            console.error(error);
+            notifyFun(error.response.data.message, true);
+            setLoading(false)
+        }
+             
+             
+            
         }else{
             if(signup.password!==signup.secpassword) notifyfun("Passwords do not match",true)
             await axios.post("http://localhost:8000/auth/register",signup)
@@ -257,7 +259,7 @@ const Login = () => {
 
           <p className="mt-10 text-center text-sm text-gray-500">
           {mode?"Not a member? ":"Already a member? "}
-            <button onClick={()=>{cancelCourse();setToInitial();setMode(!mode)}}  className="font-semibold leading-6 text-black font-semibold ">
+            <button onClick={()=>{cancelCourse();setToInitial();setMode(!mode)}}  className="font-semibold leading-6 text-black  ">
               {mode?" Sign up":" Sign in"}
             </button>
           </p>
