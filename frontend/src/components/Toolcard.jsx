@@ -58,7 +58,7 @@ const token=localStorage.getItem('token')
   return (
 
 
-<div className="rounded-lg border bg-card relative shadow-sm w-full " data-v0-t="card">
+<div className="rounded-lg border bg-card  shadow-sm w-full " data-v0-t="card">
   <div className="px-4">
   <div className='flex items-center gap-3 '> 
       <div className="p-3 ">
@@ -81,7 +81,7 @@ const token=localStorage.getItem('token')
       <p className="text-xs text-gray-600  dark:text-gray-400">{description}</p>
 
   </div>
-  <div className='bottom-1 left-1 absolute'>
+ 
 
 {!have?  <button onClick={handleSubmit}   className="inline-flex items-center mt-4 justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full">
      Add to Environment
@@ -93,7 +93,7 @@ const token=localStorage.getItem('token')
      </button>}
 
 
-</div>
+
 </div>
   );
 };

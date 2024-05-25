@@ -2,7 +2,7 @@
 import Landing from './routes/Landing';
 import {Login,Dashboard,Subjectpage as ModuleEnvironmentPage,
        Overview,mysubjectLoader,addtoolAction,
-          subjectLoader2} from './pages/teacher'
+          subjectLoader2,Environment} from './pages/teacher'
 import {Admin,Subjectpage,SubjectsTable,Teacherpage,
   TeachersTable,subjectsLoader,subjectPost,subjectLoader,
   TeacherLoader,TeacherAction,getTeachersLoader,teachersPost} from './pages/admin'
@@ -27,7 +27,9 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <Dashboard/>,
+    
     children: [
+      { index: true, element: <Environment/> },
       {
         path: "mysubjects",
         element: <Overview/>,

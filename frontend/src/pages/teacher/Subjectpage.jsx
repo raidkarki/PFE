@@ -93,7 +93,7 @@ const ModuleEnvironmentPage = () => {
       tools.length>0 &&(
         <div className=''>
         <span>Search result</span> 
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-10'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-10 mt-10'>
           {
             tools.map((tool,index)=>(
               
@@ -110,12 +110,14 @@ const ModuleEnvironmentPage = () => {
     }
 
 
-    <div>
+    <div className='mt-4'>
+    <div className='italic font-thin  '> 
     {
-      toolsIhave.length>0?<span className=''>Tools you have</span>:<span>you have not tools yet</span>
-    }
+      toolsIhave.length>0?<span className=' '>Tools you have</span>:<span>you have not tools yet</span>
+    }</div>
+   
       
-      <div className="grid mt-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-10">
+      <div className="grid my-4  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-10 ">
      {
       toolsIhave.map((myTool,index)=>(
         <ToolCard key={index} have ver={myTool.version} subjectId={subject._id} {...myTool.tool}></ToolCard>

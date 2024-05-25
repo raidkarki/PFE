@@ -9,7 +9,7 @@ export const search = async (req, res) => {
   try {
     const val = req.query.val;
     
-    console.log(val);
+   
     
     const tools = await Tool.find({name:{$regex:val,$options:'i'}}).exec();
     
@@ -27,7 +27,7 @@ export const getTeacher= async (req,res)=>{
       const id=req.user.id
       
       const teacher = await Teacher.findOne({_id:id}).populate("preference.subject").exec();
-      console.log(teacher);
+      
    
       
       res.status(200).json({ teacher });
@@ -38,7 +38,7 @@ export const getTeacher= async (req,res)=>{
 export const getSubject=async(req,res)=>{
   try {
     const subjectid=req.headers.subjectid
-    console.log(subjectid);
+   
     const subject=await Subject.findOne({_id:subjectid})
     res.status(200).json({subject})
     
@@ -76,7 +76,7 @@ export const deleteTool=async(req,res)=>{
   try {
     const teacherId=req.user.id
     const {toolId,subjectId}=req.query
-    console.log(toolId,subjectId);
+    
     const teacher=await Teacher.findById(teacherId)
     teacher.preference.map((preference)=>{
      if (preference.subject==subjectId) {
