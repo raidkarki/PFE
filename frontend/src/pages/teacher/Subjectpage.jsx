@@ -91,8 +91,8 @@ const ModuleEnvironmentPage = () => {
     <div className='gap-4'>
     {
       tools.length>0 &&(
-        <div className=''>
-        <span>Search result</span> 
+        <div >
+        <span className='italic font-thin'>Search result</span> 
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-10 mt-10'>
           {
             tools.map((tool,index)=>(
