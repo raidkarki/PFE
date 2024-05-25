@@ -92,7 +92,7 @@ export const assignSubjects=async(req,res)=>{
             // Add the preference object to the preferences array
             preferences.push(preference);
           });
-        console.log(teacherId,subjects,preferences);
+        
         await Teacher.updateOne({_id:teacherId},{ $push: { preference: { $each: preferences } } })
         res.status(200).json({message:"Assingment succeded"})
     } catch (error) {

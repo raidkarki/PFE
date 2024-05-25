@@ -4,7 +4,7 @@ import { redirect, useLoaderData,Form } from 'react-router-dom';
 
 
 export const loader= async ({params}) => {
-    console.log(params.subjectid);
+  
   const response = await axios.get(`http://localhost:8000/admin/getsubject?id=${params.subjectid}`)
   
     const data = response.data.subject

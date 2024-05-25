@@ -8,7 +8,7 @@ const secret=process.env.SECRET_KEY||"mysecretkey";
 
 export const register = async (req, res) => {
      const { name, password, secondname, email } = req.body;
-    console.log(req.body);
+  
 
     try {
         const isExist = await Teacher.findOne({ email });
