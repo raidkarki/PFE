@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: Abdelmoumene-Programmation web
+  namespace: default
+  labels:
+    subject: Programmation web
+    degree: Bachelier
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: Programmation web
+  template:
+    metadata:
+      labels:
+        app: Programmation web
+    spec:
+      containers:
+        - name: node js-container
+          image: node:16.20.2
+          command:
+            - sleep
+            - infinity
+          stdin: true
+          tty: true
+        - name: mongodb-container
+          image: mongo:7.0
+          command:
+            - sleep
+            - infinity
+          stdin: true
+          tty: true
