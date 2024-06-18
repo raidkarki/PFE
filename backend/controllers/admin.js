@@ -1,6 +1,6 @@
-import { Teacher,Subject,Tool,Environment } from "../database/model.js";
+import { Teacher,Subject,Tool } from "../database/model.js";
 import {v2 as cloudinary} from 'cloudinary'
-import fs from "fs";
+
 
 cloudinary.config(
     {
