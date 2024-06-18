@@ -42,10 +42,16 @@ const ModuleEnvironmentPage = () => {
   const toolsIhave=preferenceNeed[0].tools
   console.log(toolsIhave);
 
-  const handleTest=()=>{
-    console.log("test");
-  
-  }
+  const handleTest = async () => {
+    try {
+      const response = await axios.post('http://localhost:8000/core/deploy');
+      console.log('Deploy response:', response.data);
+      alert('Deployment initiated successfully!');
+    } catch (error) {
+      console.error('Error deploying environment:', error);
+      alert('Failed to initiate deployment.');
+    }
+  };
 
 
   return (
@@ -81,7 +87,7 @@ const ModuleEnvironmentPage = () => {
             </Form>
           </div>
           <button onClick={handleTest} className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-9 rounded-md px-3">
-            Save 
+            Deploy 
           </button>
           <button className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3">
             View environment

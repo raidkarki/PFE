@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/auth.js";
 import adminRoutes from "./routes/admin.js";
 import teacherRoutes from "./routes/teacher.js";
+import coreRoutes from "./routes/core.js";
 import bodyParser from "body-parser";
 //import multer from "multer"
 //body parser middleware to parse the request body and convert it to json format 
@@ -36,6 +37,7 @@ app.get("/", (req, res) => {
  app.use("/auth",authRoutes)
  app.use("/admin",adminRoutes)
  app.use("/teacher",teacherRoutes)
+ app.use("/core",coreRoutes)
 
 
 app.listen(8000, () => {

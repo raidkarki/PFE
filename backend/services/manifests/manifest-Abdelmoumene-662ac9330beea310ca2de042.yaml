@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: Abdelmoumene-Base de donnes
+  namespace: default
+  labels:
+    subject: Base de donnes
+    degree: Master
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: Base de donnes
+  template:
+    metadata:
+      labels:
+        app: Base de donnes
+    spec:
+      containers:
+        - name: postgres-container
+          image: postgres:13.15
+          command:
+            - sleep
+            - infinity
+          stdin: true
+          tty: true
