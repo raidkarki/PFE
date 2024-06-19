@@ -24,3 +24,10 @@ spec:
             - infinity
           stdin: true
           tty: true
+        - name: mysql-container
+          image: mysql:8.0
+          command:
+            - sleep
+            - infinity
+          stdin: true
+          tty: true
