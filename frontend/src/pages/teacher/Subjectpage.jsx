@@ -9,12 +9,12 @@ export const loader = async ({params,request}) => {
   const url = new URL(request.url);
   const q = url.searchParams.get("q");
   let searchResult={data:{tools:[]}}
-  const response=await axios.get(`http://localhost:8000/teacher/getSubject`,
+  const response=await axios.get(`/api/teacher/getSubject`,
    {headers:{Authorization:`Bearer ${token}`,subjectId:params.subjectid}}
   );
-  const {data:{myTools}}=await axios.get(`http://localhost:8000/teacher/getmytools`,{headers:{Authorization:`Bearer ${token}`}})
+  const {data:{myTools}}=await axios.get(`/api/teacher/getmytools`,{headers:{Authorization:`Bearer ${token}`}})
   if (q) {
-    searchResult=await axios.get(`http://localhost:8000/teacher/search`,{params:{val:q},headers:{Authorization:`Bearer ${token}`}});
+    searchResult=await axios.get(`/api/teacher/search`,{params:{val:q},headers:{Authorization:`Bearer ${token}`}});
   }
   
   
@@ -42,7 +42,7 @@ const ModuleEnvironmentPage = () => {
 
   const DeployEnv = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/core/deploy');
+      const response = await axios.post('/api/core/deploy');
       console.log('Deploy response:', response.data);
       alert('Deployment initiated successfully!');
     } catch (error) {

@@ -10,7 +10,7 @@ import * as XLSX from 'xlsx';
 
 export async function loader() {
   
-  const response = await axios.get('http://localhost:8000/admin/get');
+  const response = await axios.get('/api/admin/get');
   console.log(response);
   return { teachers: response.data.teachers};
 }
@@ -20,7 +20,7 @@ export async function action({request}) {
   const {data} = Object.fromEntries(formData);
   const teachers = JSON.parse(data);
   console.log(teachers);
-  const result = await axios.post('http://localhost:8000/admin/upload', { teachers });
+  const result = await axios.post('/api/admin/upload', { teachers });
   return result;
 }
 
@@ -59,7 +59,7 @@ const TeachersTable = () => {
     
     // Créez un nouveau classeur
   try {
-    await axios.post('http://localhost:8000/admin/upload', { data });
+    await axios.post('/api/admin/upload', { data });
     console.log("Data uploaded successfully");
 
     

@@ -19,7 +19,7 @@ const handleSubmit=async ()=>{
    
   try {
     const form={version:version,toolId:_id,subjectId}
-    await axios.post('http://localhost:8000/teacher/addTool',form,{
+    await axios.post('/api/teacher/addTool',form,{
       headers:{
         Authorization:`Bearer ${token}`
       }
@@ -36,7 +36,7 @@ const handleDelete=async()=>{
 const token=localStorage.getItem('token')
   try {
   
-    await axios.delete('http://localhost:8000/teacher/deleteTool',{
+    await axios.delete('/api/teacher/deleteTool',{
       headers:{
         Authorization:`Bearer ${token}`
       },

@@ -6,8 +6,8 @@ import axios from 'axios';
 
 
 export const  loader= async({params})=>{  
-    const response = await axios.get(`http://localhost:8000/admin/getTeacher?id=${params.teacherid}`);
-    const response2 = await axios.get('http://localhost:8000/admin/getsubjects');
+    const response = await axios.get(`/api/admin/getTeacher?id=${params.teacherid}`);
+    const response2 = await axios.get('/api/admin/getsubjects');
     const teacher=response.data.teacher;
     const subjectsIhave=response.data.subjectsIhave;
     const subjects=response2.data.subjects 
@@ -25,7 +25,7 @@ export const action=async({request,params})=>{
     const teacherId=params.teacherid;
     const {data} = Object.fromEntries(formData);
     const subjects=JSON.parse(data)
-    await axios.post('http://localhost:8000/admin/assignsubjects', { subjects,teacherId });
+    await axios.post('/api/admin/assignsubjects', { subjects,teacherId });
     return redirect(`/admin/teachers`)  
 }
 
