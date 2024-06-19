@@ -14,11 +14,12 @@ export async function loader() {
   console.log(response);
   return { teachers: response.data.teachers};
 }
-export async function action({request}) {
+export const action=async({request})=> {
   
   const formData = await request.formData();
-  const {data} = Object.fromEntries(formData);
-  const teachers = JSON.parse(data);
+  const {extractedData} = Object.fromEntries(formData);
+
+  const teachers = JSON.parse(extractedData);
   console.log(teachers);
   const result = await axios.post('http://localhost:8000/admin/upload', { teachers });
   return result;
@@ -46,29 +47,16 @@ const TeachersTable = () => {
         const data = XLSX.utils.sheet_to_json(ws);
         document.getElementById('extractedData').value = JSON.stringify(data);
         console.log(data);
-        setTeachers(data);
+        
       };
       
-
       reader.readAsBinaryString(file);
+      
     }
   };
     
   // Fonction pour gérer l'exportation des données vers un fichier Excel
-  const addToDB = async() => {
-    
-    // Créez un nouveau classeur
-  try {
-    await axios.post('http://localhost:8000/admin/upload', { data });
-    console.log("Data uploaded successfully");
 
-    
-  } catch (error) {
-    console.log(error);
-
-    
-  }
-  };
   
 
 

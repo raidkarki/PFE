@@ -13,11 +13,11 @@ export async function loader() {
 
 
 export const action=async ({request})=>{
-  console.log("yes");
+ 
     const formData=await request.formData();
     const {extractedData} = Object.fromEntries(formData);
     const subjects = JSON.parse(extractedData);
-    console.log(subjects);
+  
     const result= await axios.post('http://localhost:8000/admin/uploadsubjects', { subjects });
     return result
     //console.log("Data uploaded successfully");
@@ -43,7 +43,7 @@ const SubjectsTable = () => {
           const ws = wb.Sheets[wsname];
           const data = XLSX.utils.sheet_to_json(ws);
           document.getElementById('extractedData').value = JSON.stringify(data);
-          setSubjects(data);
+          
           console.log(data);
         };
         
