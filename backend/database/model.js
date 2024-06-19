@@ -36,6 +36,7 @@ teacherSchema.methods.getSubjects =function getSubjects(){
 // Schéma pour les outils
 const toolSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
+  imagename:{type:String,required:true,unique:true},
   versions:[{type:String,required:true}],
   description: { type: String, required: true },
   url: { type: String  },

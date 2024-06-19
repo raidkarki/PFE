@@ -1,6 +1,6 @@
-import { Teacher,Subject,Tool,Environment } from "../database/model.js";
+import { Teacher,Subject,Tool } from "../database/model.js";
 import {v2 as cloudinary} from 'cloudinary'
-import fs from "fs";
+
 
 cloudinary.config(
     {
@@ -92,7 +92,7 @@ export const assignSubjects=async(req,res)=>{
             // Add the preference object to the preferences array
             preferences.push(preference);
           });
-        console.log(teacherId,subjects,preferences);
+        
         await Teacher.updateOne({_id:teacherId},{ $push: { preference: { $each: preferences } } })
         res.status(200).json({message:"Assingment succeded"})
     } catch (error) {
@@ -103,18 +103,12 @@ export const assignSubjects=async(req,res)=>{
 export const addTool=async(req,res)=>{
 
     try {
-      
-      
-      
-      const {name,description,versions}=req.body
-      const imageData = fs.readFileSync(req.file.path);
-      
-      const base64Data = imageData.toString('base64');
+      const {name,description,versions,imagename}=req.body
       
       const response= await  cloudinary.uploader.upload(req.file.path)
      
-      await Tool.create({name,description,versions,icon: response.secure_url})
-      res.json({message:"i am testing"})
+      await Tool.create({name,description,versions,icon: response.secure_url,imagename})
+      res.status(200).json({message:"Tool added successfully"})
       
     } catch (error) {
         res.status(500).json({error:error.message})

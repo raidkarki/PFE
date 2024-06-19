@@ -2,10 +2,10 @@
 import Landing from './routes/Landing';
 import {Login,Dashboard,Subjectpage as ModuleEnvironmentPage,
        Overview,mysubjectLoader,addtoolAction,
-          subjectLoader2} from './pages/teacher'
+          subjectLoader2,Environment} from './pages/teacher'
 import {Admin,Subjectpage,SubjectsTable,Teacherpage,
   TeachersTable,subjectsLoader,subjectPost,subjectLoader,
-  TeacherLoader,TeacherAction,getTeachersLoader} from './pages/admin'
+  TeacherLoader,TeacherAction,getTeachersLoader,teachersPost} from './pages/admin'
 
 import {createBrowserRouter,RouterProvider} from 'react-router-dom';
 
@@ -19,12 +19,17 @@ const router = createBrowserRouter([
   {
     path: "/auth",
     element: <Login />,
+  },{
+    
   },
+
   //this is dashboard route
   {
-    path: "/:name",
+    path: "/dashboard",
     element: <Dashboard/>,
+    
     children: [
+      { index: true, element: <Environment/> },
       {
         path: "mysubjects",
         element: <Overview/>,
@@ -50,6 +55,7 @@ const router = createBrowserRouter([
         path: "teachers",
         element: <TeachersTable />,
         loader: getTeachersLoader,
+        action:teachersPost,
       
         
       },

@@ -12,7 +12,7 @@ const navigation = [
     { name: 'Calendar', href: 'calendar'},
   
   ]
-const userNavigation = [
+const userFonctions = [
     { name: 'Your Profile', href: '#' },
     { name: 'Settings', href: '#' },
     { name: 'Sign out', href: '#' },
@@ -34,7 +34,7 @@ const Header = () => {
               <div className="flex text-white text-center items-center">
             <SchoolIcon className="h-8 w-8 mr-2 " />
             <span className="text-md font-semibold">Classroom Companion</span>
-          </div>
+              </div>
               </div>
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
@@ -86,7 +86,7 @@ const Header = () => {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      {userNavigation.map((item) => (
+                      {userFonctions.map((item) => (
                         <Menu.Item key={item.name}>
                           {({ active }) => (
                             <Link
@@ -127,7 +127,7 @@ const Header = () => {
               <Disclosure.Button
                 key={item.name}
                 as="a"
-                href={item.href}
+                href={`/dashboard/${item.href}`}
                 className={classNames(
                   item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                   'block rounded-md px-3 py-2 text-base font-medium'
@@ -157,7 +157,7 @@ const Header = () => {
               </button>
             </div>
             <div className="mt-3 space-y-1 px-2">
-              {userNavigation.map((item) => (
+              {userFonctions.map((item) => (
                 <Disclosure.Button
                   key={item.name}
                   as="a"

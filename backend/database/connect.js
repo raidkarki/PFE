@@ -13,7 +13,7 @@ async function run() {
   try {
     // Create a Mongoose client with a MongoClientOptions object to set the Stable API version
      //await mongoose.connect(uri, clientOptions).catch(error => handleError(error));
-     await mongoose.connect(mongoIncontainer,{ useNewUrlParser: true, useUnifiedTopology: true })
+     await mongoose.connect(mongolocal)
     
     
     //await mongoose.connection.db.admin().command({ ping: 1 });  

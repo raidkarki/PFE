@@ -1,12 +1,10 @@
-// TeachersTable.js
 import React, { useState } from 'react';
 import {
   Link,
-  useLoaderData,} from "react-router-dom";
-//import {teachers} from './teachers.json';
+  useLoaderData,Form} from "react-router-dom";
 import axios from 'axios';
 import * as XLSX from 'xlsx';
-//import { Outlet } from 'react-router-dom';
+
 
 
 
@@ -16,6 +14,15 @@ export async function loader() {
   console.log(response);
   return { teachers: response.data.teachers};
 }
+export async function action({request}) {
+  
+  const formData = await request.formData();
+  const {data} = Object.fromEntries(formData);
+  const teachers = JSON.parse(data);
+  console.log(teachers);
+  const result = await axios.post('http://localhost:8000/admin/upload', { teachers });
+  return result;
+}
 
 
 const TeachersTable = () => {
@@ -24,7 +31,7 @@ const TeachersTable = () => {
 
  
 
-  // Fonction pour gérer l'importation du fichier Excel
+
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     console.log(file);
@@ -37,6 +44,7 @@ const TeachersTable = () => {
         const wsname = wb.SheetNames[0];
         const ws = wb.Sheets[wsname];
         const data = XLSX.utils.sheet_to_json(ws);
+        document.getElementById('extractedData').value = JSON.stringify(data);
         console.log(data);
         setTeachers(data);
       };
@@ -66,9 +74,6 @@ const TeachersTable = () => {
 
   return (
 <div className="container mx-auto p-4">
-  {/* Excel File Import Zone */}
-
-
   {/* Teachers Display Table */}
   <table className="min-w-full border border-gray-300">
     {/* Table Header */}
@@ -104,16 +109,20 @@ const TeachersTable = () => {
     </tbody>
   </table>
   <div className="flex mt-4">
-  <input type="file" name='data' accept=".xls, .xlsx" onChange={handleFileUpload} className="block w-full text-sm text-slate-500
-      file:mr-4 file:py-2 file:px-4
-      file:rounded-full file:border-0
-      file:text-sm file:font-semibold
-      file:bg-violet-50 file:text-blue-500
-      hover:file:bg-violet-100
-    "/>
-     <button class="bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 rounded-full">
-  Save changes
-</button>
+      <Form className="flex  " method="post">
+        <label htmlFor='file-upload' className="block w-full text-sm text-slate-500">Upload Excel File</label>
+        <input type="file" name='data' id='file-upload' accept=".xls, .xlsx" onChange={handleFileUpload} className=" w-full text-sm text-slate-500
+            file:mr-4 file:py-2 file:px-4
+            file:rounded-full file:border-0
+            file:text-sm file:font-semibold hidden
+            file:bg-violet-50 file:text-blue-500
+            hover:file:bg-violet-100
+          "/>
+        <input type="hidden" name="extractedData" id="extractedData" />
+           <button type='submit' className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-violet-300 rounded-md">
+                 Save 
+            </button>
+      </Form>
   </div>
 
 </div>
