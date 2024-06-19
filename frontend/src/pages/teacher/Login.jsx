@@ -67,10 +67,10 @@ const Login = () => {
              
             
         }else{
-            if(signup.password!==signup.secpassword) notifyfun("Passwords do not match",true)
+            if(signup.password!==signup.secpassword) notifyFun("Passwords do not match",true)
             await axios.post("http://localhost:8000/auth/register",signup)
             .then((res)=>{
-            notifyfun("Signup successful",false)
+            notifyFun("Signup successful",false)
             console.log(res)
             setToInitial()
             cancelCourse() 
@@ -80,7 +80,7 @@ const Login = () => {
             setLoading(false)
             }
             ).catch((err)=>{
-                notifyfun("Contact your admin",true)
+                notifyFun("Contact your admin",true)
                 console.log(err)
                 setLoading(false)
             })
