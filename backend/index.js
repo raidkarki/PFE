@@ -34,9 +34,9 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
- app.use("/auth",authRoutes)
- app.use("/admin",adminRoutes)
- app.use("/teacher",teacherRoutes)
+ app.use("/api/auth",authRoutes)
+ app.use("/api/admin",adminRoutes)
+ app.use("/api/teacher",teacherRoutes)
  app.use("/core",coreRoutes)
 
 
