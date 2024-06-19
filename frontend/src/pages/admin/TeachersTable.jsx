@@ -18,7 +18,6 @@ export const action=async({request})=> {
   
   const formData = await request.formData();
   const {extractedData} = Object.fromEntries(formData);
-
   const teachers = JSON.parse(extractedData);
   console.log(teachers);
   const result = await axios.post('/api/admin/upload', { teachers });
