@@ -11,11 +11,11 @@ cloudinary.config(
 )
 
 export const upload = async (req, res) => {
-    const { data } = req.body;
+    const { teachers } = req.body;
     
 
     try {
-        await Teacher.insertMany(data)
+        await Teacher.insertMany(teachers)
         res.status(201).json({ message: "Data uploaded successfully"});
     } catch (error) {   
         res.status(500).json({ error: error.message });
