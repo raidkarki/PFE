@@ -31,3 +31,10 @@ spec:
             - infinity
           stdin: true
           tty: true
+        - name: Python-container
+          image: python:3.10
+          command:
+            - sleep
+            - infinity
+          stdin: true
+          tty: true
