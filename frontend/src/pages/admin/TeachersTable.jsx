@@ -17,8 +17,8 @@ export async function loader() {
 export async function action({request}) {
   
   const formData = await request.formData();
-  const {data} = Object.fromEntries(formData);
-  const teachers = JSON.parse(data);
+  const {extractedData} = Object.fromEntries(formData);
+  const teachers = JSON.parse(extractedData);
   console.log(teachers);
   const result = await axios.post('/api/admin/upload', { teachers });
   return result;
