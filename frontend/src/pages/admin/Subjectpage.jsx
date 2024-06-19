@@ -5,7 +5,7 @@ import { redirect, useLoaderData,Form } from 'react-router-dom';
 
 export const loader= async ({params}) => {
   
-  const response = await axios.get(`http://localhost:8000/admin/getsubject?id=${params.subjectid}`)
+  const response = await axios.get(`/api/admin/getsubject?id=${params.subjectid}`)
   
     const data = response.data.subject
   return data
@@ -17,7 +17,7 @@ export const action= async ({request}) => {
     console.log(name,degree,description);
     const subject = {name,degree,description}
     console.log(subject);
-    const result = await axios.post('http://localhost:8000/admin/updatesubject', { subject });
+    const result = await axios.post('/api/admin/updatesubject', { subject });
     return redirect('/admin/subjects')
 }
 

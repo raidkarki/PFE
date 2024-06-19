@@ -7,7 +7,7 @@ import axios from 'axios';
 
 export const loader = async () => {
   const token=localStorage.getItem('token');
-  const response = await axios.get(`http://localhost:8000/teacher/getTeacher`,{
+  const response = await axios.get(`/api/teacher/getTeacher`,{
     
     headers: {
       Authorization: `Bearer ${token}`,
