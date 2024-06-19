@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 
 const uri = `mongodb+srv://karkiraid35:${process.env.DB_SECRET_KEY}@base.a3ofacs.mongodb.net/?retryWrites=true&w=majority`;
 const mongolocal="mongodb://127.0.0.1:27017/PFE"
-const mongoIncontainer="mongodb://mongo:27017/PFE"
+
 
 const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
 
