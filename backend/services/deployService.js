@@ -8,7 +8,7 @@ import { Client } from 'ssh2';
 
 
 const  deployManifest = (filePath) => {
-    exec(`kubectl apply -f ${localFilePath}`, (err, stdout, stderr) => {
+    exec(`kubectl apply -f ${filePath}`, (err, stdout, stderr) => {
         if (err) {
             console.error('Error applying Kubernetes manifest:', err);
             return;
