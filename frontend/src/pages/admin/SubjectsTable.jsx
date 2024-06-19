@@ -6,7 +6,7 @@ import axios from 'axios';
 
 export async function loader() {
   
-  const response = await axios.get('http://localhost:8000/admin/getsubjects');
+  const response = await axios.get('/api/admin/getsubjects');
   return { subjects: response.data.subjects}; 
 }
 
@@ -18,7 +18,7 @@ export const action=async ({request})=>{
     const {extractedData} = Object.fromEntries(formData);
     const subjects = JSON.parse(extractedData);
   
-    const result= await axios.post('http://localhost:8000/admin/uploadsubjects', { subjects });
+    const result= await axios.post('/api/admin/uploadsubjects', { subjects });
     return result
     //console.log("Data uploaded successfully");
 }

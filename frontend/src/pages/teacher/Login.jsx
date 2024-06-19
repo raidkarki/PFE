@@ -46,7 +46,7 @@ const Login = () => {
         if(mode){
 
           try {
-            const res = await axios.post("http://localhost:8000/auth/login", form);
+            const res = await axios.post("/api/auth/login", form);
             
     
             if (res.status === 200) {
@@ -68,7 +68,7 @@ const Login = () => {
             
         }else{
             if(signup.password!==signup.secpassword) notifyFun("Passwords do not match",true)
-            await axios.post("http://localhost:8000/auth/register",signup)
+            await axios.post("/api/auth/register",signup)
             .then((res)=>{
             notifyFun("Signup successful",false)
             console.log(res)

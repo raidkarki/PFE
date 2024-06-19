@@ -10,7 +10,7 @@ import * as XLSX from 'xlsx';
 
 export async function loader() {
   
-  const response = await axios.get('http://localhost:8000/admin/get');
+  const response = await axios.get('/api/admin/get');
   console.log(response);
   return { teachers: response.data.teachers};
 }
@@ -21,7 +21,7 @@ export const action=async({request})=> {
 
   const teachers = JSON.parse(extractedData);
   console.log(teachers);
-  const result = await axios.post('http://localhost:8000/admin/upload', { teachers });
+  const result = await axios.post('/api/admin/upload', { teachers });
   return result;
 }
 
