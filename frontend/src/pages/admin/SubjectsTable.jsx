@@ -13,7 +13,7 @@ export async function loader() {
 
 
 export const action=async ({request})=>{
-  console.log("yes");
+ 
     const formData=await request.formData();
     const {extractedData} = Object.fromEntries(formData);
     const subjects = JSON.parse(extractedData);
@@ -43,7 +43,7 @@ const SubjectsTable = () => {
           const ws = wb.Sheets[wsname];
           const data = XLSX.utils.sheet_to_json(ws);
           document.getElementById('extractedData').value = JSON.stringify(data);
-          setSubjects(data);
+          
           console.log(data);
         };
         

@@ -14,7 +14,7 @@ export async function loader() {
   console.log(response);
   return { teachers: response.data.teachers};
 }
-export async function action({request}) {
+export const action=async({request})=> {
   
   const formData = await request.formData();
   const {extractedData} = Object.fromEntries(formData);
@@ -46,11 +46,11 @@ const TeachersTable = () => {
         const data = XLSX.utils.sheet_to_json(ws);
         document.getElementById('extractedData').value = JSON.stringify(data);
         console.log(data);
-        setTeachers(data);
+        
       };
       
-
       reader.readAsBinaryString(file);
+      
     }
   };
     
@@ -59,7 +59,7 @@ const TeachersTable = () => {
     
     // Créez un nouveau classeur
   try {
-    await axios.post('/api/admin/upload', { data });
+    await axios.post('http://localhost:8000/admin/upload', { data });
     console.log("Data uploaded successfully");
 
     
