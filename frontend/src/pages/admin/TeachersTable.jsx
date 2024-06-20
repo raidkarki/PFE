@@ -55,7 +55,20 @@ const TeachersTable = () => {
   };
     
   // Fonction pour gérer l'exportation des données vers un fichier Excel
+  const addToDB = async() => {
+    
+    // Créez un nouveau classeur
+  try {
+    await axios.post('http://localhost:8000/admin/upload', { data });
+    console.log("Data uploaded successfully");
 
+    
+  } catch (error) {
+    console.log(error);
+
+    
+  }
+  };
   
 
 

@@ -17,8 +17,8 @@ export const action=async ({request})=>{
     const formData=await request.formData();
     const {extractedData} = Object.fromEntries(formData);
     const subjects = JSON.parse(extractedData);
-  
-    const result= await axios.post('/api/admin/uploadsubjects', { subjects });
+    console.log(subjects);
+    const result= await axios.post('http://localhost:8000/admin/uploadsubjects', { subjects });
     return result
     //console.log("Data uploaded successfully");
 }

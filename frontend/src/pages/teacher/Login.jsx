@@ -67,8 +67,8 @@ const Login = () => {
              
             
         }else{
-            if(signup.password!==signup.secpassword) notifyFun("Passwords do not match",true)
-            await axios.post("/api/auth/register",signup)
+            if(signup.password!==signup.secpassword) notifyfun("Passwords do not match",true)
+            await axios.post("http://localhost:8000/auth/register",signup)
             .then((res)=>{
             notifyFun("Signup successful",false)
             console.log(res)
