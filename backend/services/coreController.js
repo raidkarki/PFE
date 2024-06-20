@@ -12,7 +12,7 @@ const createAndDeployManifests = async (req, res) => {
 
     teachers.forEach(teacher => {
       const manifestFilePaths = manifestService(teacher.preference,teacher.name);
-      manifestFilePaths.forEach(filePath => deployService(filePath));
+      manifestFilePaths.forEach(filePath => deployService(filePath.filePath));
     });
     
     res.status(200).json({ message: 'Manifests created and deployed successfully' });

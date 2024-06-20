@@ -51,16 +51,20 @@ const manifestService = (preferences, name) => {
       console.error("No valid containers found for preference", preference);
       return null;
     }
-
+    const teachername=name.replace(/\s/g, '-').toLowerCase();
+    const subjectname = preference.subject.name.replace(/\s/g, '-').toLowerCase();
+    const subjectdegree = preference.subject.degree.replace(/\s/g, '-').toLowerCase();
+    
+    
     const manifest = {
       apiVersion: 'apps/v1',
       kind: 'Deployment',
       metadata: {
-        name: `${name}-${preference.subject.name}`,
+        name: `${teachername}-${subjectname}`,
         namespace: 'default',
         labels:{
-            subject:`${preference.subject.name}`,
-            degree:`${preference.subject.degree}`
+            subject:`${subjectname}`,
+            degree:`${subjectdegree}`
             
         }
       },
@@ -68,13 +72,13 @@ const manifestService = (preferences, name) => {
         replicas: 2,
         selector: {
           matchLabels: {
-            app: `${preference.subject.name}`, // Adjust label based on preference name
+            app: `${subjectname}`, // Adjust label based on preference name
           },
         },
         template: {
           metadata: {
             labels: {
-              app: `${preference.subject.name}`, // Example label for the template
+              app: `${subjectname}`, // Example label for the template
             },
           },
           spec: {
