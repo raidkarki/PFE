@@ -37,7 +37,7 @@ app.get("/", (req, res) => {
  app.use("/api/auth",authRoutes)
  app.use("/api/admin",adminRoutes)
  app.use("/api/teacher",teacherRoutes)
- app.use("/core",coreRoutes)
+ app.use("/api/core",coreRoutes)
 
 
 app.listen(8000, () => {
